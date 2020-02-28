@@ -15,6 +15,7 @@ const Card = (props) => {
     const [animationState, setAnimationState] = useState(new Animated.Value(showDetails ? 1 : 0))
     const [isValid, setIsValid] = useState(false)
     const dispatch = useDispatch();
+    // console.log('There still is a card')
     // console.log('Obj id ' +objectIndetifier);
     // console.log('Type' + type);
     // console.log('Add desc ' +aditionalDescription)
@@ -76,15 +77,15 @@ const Card = (props) => {
             FormComp = <NumericForm objectIndetifier={objectIndetifier} isValid={isValid} setIsValid={setIsValid} />
             break;
         case TRUEFALSE:
-            FormComp = <TrueFalseForm objectIndetifier={objectIndetifier} isValid={isValid} setIsValid={setIsValid} cardTopnessIndex={cardTopnessIndex} currentTopIndex={currentTopIndex} />
+            FormComp = <TrueFalseForm objectIndetifier={objectIndetifier} isValid={isValid} setIsValid={setIsValid} 
+                                      cardTopnessIndex={cardTopnessIndex} currentTopIndex={currentTopIndex} />
             break;
     }
 
     if (Platform.OS === 'android' && Platform.Version > 21) {
         TouchableComp = TouchableNativeFeedback;
     }
-    //showDetails ? Dimensions.get('window').height/3 : Dimensions.get('window').height/9
-    //showDetails ? '16%' : '65%'
+
     return (
         <Animated.View style={{ ...styles.card, height: cardHeight, marginBottom: bottomMargin }}>
             <Animated.View style={{ ...styles.label, height: labelHeight }}>
@@ -96,7 +97,6 @@ const Card = (props) => {
                             </DefaultText>
                         </LinearGradient>
                     </View>
-
                 </TouchableComp>
 
             </Animated.View>

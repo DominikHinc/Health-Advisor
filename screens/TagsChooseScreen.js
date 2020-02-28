@@ -1,36 +1,58 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, StyleSheet, Dimensions, KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, KeyboardAvoidingView, Alert } from 'react-native'
 import DefaultButton from '../components/DefaultButton'
 import Colors from '../constants/Colors'
 import { LinearGradient } from 'expo-linear-gradient'
 import Card from '../components/Card'
 import { FlatList } from 'react-native-gesture-handler'
 import { useSelector, useDispatch } from 'react-redux'
-import { addQuestion, changeShowDetails, nextQuestion } from '../store/actions'
+import { nextQuestion, resetAction } from '../store/actions'
+import LinearTextGradient from 'react-native-linear-gradient';
 
-const TagsChooseScreen = () => {
+const TagsChooseScreen = (props) => {
     const [loaded, setLoaded] = useState(false)
     const tabOfCards = useSelector(state => state.cards.cardsInfo);
     const currentTopCardIndex = useSelector(state => state.cards.currentTopIndex)
+    const noMoreQuestions = useSelector(state => state.cards.noMoreQuestions)
     const dispatch = useDispatch();
     const listRef = useRef();
     const [closeThemAll, setCloseThemAll] = useState(false)
+    const timeOut = useRef()
+
+    // useEffect(() => {
+    //     if (loaded === false) {
+    //         setLoaded(true);
+    //         dispatch(nextQuestion())
+    //     }
+
+    // }, [])
 
     useEffect(() => {
-        if (loaded === false) {
-            setLoaded(true);
-            dispatch(nextQuestion())
+        if (noMoreQuestions) {
+            props.navigation.navigate('Resault');
+            clearTimeout(timeOut.current);
         }
+    }, [noMoreQuestions])
 
-    }, [])
+    const reset = () => {
+        dispatch(resetAction());
+        setLoaded(false);
+        props.navigation.navigate('Splash')
+    }
+
+    const resetButtonHandler = () => {
+        Alert.alert('Reset', 'Are you sure you want to reset?', [{ text: 'No' }, { text: "Yes", onPress: reset }])
+    }
 
 
     const addNewCard = () => {
         dispatch(nextQuestion());
         setCloseThemAll(true);
-        setTimeout(() => {
+        timeOut.current = setTimeout(() => {
             setCloseThemAll(false)
         }, 150)
+
+
     }
 
     const renderCard = (itemData) => {
@@ -38,24 +60,6 @@ const TagsChooseScreen = () => {
             closeThemAll={closeThemAll} aditionalDescription={itemData.item.aditionalDescription} type={itemData.item.type}
             cardTopnessIndex={itemData.index} currentTopIndex={currentTopCardIndex} />
     }
-
-    // const addNewQuestion = (id,title,content)=>{
-    //     const [showDetails, setShowDetails] = useState(true);
-    //     tabOfCards.push({
-    //         id:id,
-    //         title:title,
-    //         content:content,
-    //         showDetails:showDetails,
-    //         setShowDetails:setShowDetails
-    //     })
-    //     setCurrentId(prev => prev+=1)
-    //     listRef.current.scrollToIndex({
-    //         index:tabOfQuestions.length-1
-    //     });
-    // }
-
-
-
 
     return (
         <View style={styles.screen}>
@@ -65,13 +69,16 @@ const TagsChooseScreen = () => {
                         data={tabOfCards} renderItem={renderCard} />
                 </KeyboardAvoidingView>
             </View>
-
-
+            <LinearTextGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.linearGradient}>
+                <Text style={styles.buttonText}>
+                    Sign in with Facebook
+                </Text>
+            </LinearTextGradient>
 
             <View style={styles.bottomBarContainer}>
                 <View style={styles.button}>
                     <LinearGradient style={{ flex: 1 }} start={[1, 0]} end={[0, 1]} colors={[Colors.green, Colors.lightGreen]}>
-                        <DefaultButton title="Reset" fontStyle={{ color: 'white', fontSize: 20 }} />
+                        <DefaultButton title="Reset" fontStyle={{ color: 'white', fontSize: 20 }} onPress={resetButtonHandler} />
                     </LinearGradient>
                 </View>
                 <View style={styles.button}>

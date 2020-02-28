@@ -9,6 +9,9 @@ const DefaultButton = (props) => {
     if (Platform.OS === 'android' && Platform.Version > 21) {
         TouchableComp = TouchableNativeFeedback;
     }
+    if(props.forceOpacity){
+        TouchableComp = TouchableOpacity;
+    }
     return (
 
         <TouchableComp style={styles.button} onPress={props.onPress} >

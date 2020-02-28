@@ -28,6 +28,8 @@ const NumericForm = (props) => {
             case 'height':
             case 'weight':
             case 'age':
+            case 'sbp':
+            case 'dbp':
                 validationResault = validate({ value: text }, threeNumbersValidation);
                 break;
             case 'pregnancyWeek':

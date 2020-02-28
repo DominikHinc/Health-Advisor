@@ -1,12 +1,12 @@
-import { ADD_QUESTION, CHANGE_SHOWDETAILS, SHIFT_STACK, NEXT_QUESTION, SET_CARD_VALIDATION, SET_FORM_DATA } from "./actions";
+import { ADD_QUESTION, CHANGE_SHOWDETAILS, SHIFT_STACK, NEXT_QUESTION, SET_CARD_VALIDATION, SET_FORM_DATA, RESET } from "./actions";
 import { QUESTIONS } from "../constants/QUESTIONS";
 
 
 const initialState = {
-    cardsInfo: [],
+    cardsInfo: [QUESTIONS.height],
     formInfo: {},
     questionStack: [
-        QUESTIONS.height,
+
         QUESTIONS.weight,
         QUESTIONS.age,
         QUESTIONS.sex,
@@ -17,7 +17,8 @@ const initialState = {
     cardsValidation: {
 
     },
-    currentTopIndex: -1
+    currentTopIndex: 0,
+    noMoreQuestions:false
 }
 
 export const cardReducer = (state = initialState, action) => {
@@ -25,7 +26,7 @@ export const cardReducer = (state = initialState, action) => {
         case NEXT_QUESTION:
             let areAllValid = true;
             for (let item in state.cardsValidation) {
-                //console.log(state.cardsValidation[item])
+                console.log(state.cardsValidation)
                 if (state.cardsValidation[item] === false) {
                     areAllValid = false;
                 }
@@ -35,27 +36,30 @@ export const cardReducer = (state = initialState, action) => {
             }
 
             let stackCopied = state.questionStack;
+            if(stackCopied.length < 1){
+                return {...state, noMoreQuestions:true}
+            }
 
             if (state.cardsInfo[state.currentTopIndex] !== undefined) {
-                console.log(state.cardsInfo[state.currentTopIndex])
-                switch(state.cardsInfo[state.currentTopIndex].objectIndetifier){
+                //console.log(state.cardsInfo[state.currentTopIndex])
+                switch (state.cardsInfo[state.currentTopIndex].objectIndetifier) {
                     case 'sex':
-                        if(state.formInfo.sex === false){  
-                            stackCopied = [QUESTIONS.isPregnant,...stackCopied]
+                        if (state.formInfo.sex === false) {
+                            stackCopied = [QUESTIONS.isPregnant, ...stackCopied]
                         }
                         break;
                     case 'isPregnant':
-                        if(state.formInfo.isPregnant === true){  
-                            stackCopied = [QUESTIONS.pregnancyWeek,...stackCopied]
+                        if (state.formInfo.isPregnant === true) {
+                            stackCopied = [QUESTIONS.pregnancyWeek, ...stackCopied]
                         }
                         break;
                     case 'isSmoking':
-                        if(state.formInfo.isSmoking === true){  
-                            stackCopied = [QUESTIONS.yearsOfSmoking,...stackCopied]
+                        if (state.formInfo.isSmoking === true) {
+                            stackCopied = [QUESTIONS.yearsOfSmoking, ...stackCopied]
                         }
                         break;
                     case 'yearsOfSmoking':
-                        stackCopied = [QUESTIONS.packOfSmoking,...stackCopied]
+                        stackCopied = [QUESTIONS.packOfSmoking, ...stackCopied]
                 }
             }
             console.log(stackCopied)
@@ -65,15 +69,6 @@ export const cardReducer = (state = initialState, action) => {
             stackCopied.shift();
             const updatedCards = [...state.cardsInfo, topQuestion]
             return { ...state, cardsInfo: updatedCards, questionStack: stackCopied, currentTopIndex: topIndexCopy }
-        case ADD_QUESTION:
-            const newCard = {
-                id: action.id,
-                title: action.title,
-                content: action.content,
-                showDetails: true
-            }
-            const updatedCardsInfo = [...state.cardsInfo, newCard]
-            return { ...state, cardsInfo: updatedCardsInfo }
         case SHIFT_STACK:
             const stackCopy = state.questionStack;
             stackCopy.shift();
@@ -89,6 +84,26 @@ export const cardReducer = (state = initialState, action) => {
             console.log(formCopy);
 
             return { ...state, formInfo: formCopy }
+        case RESET: {
+            return {
+                cardsInfo: [QUESTIONS.height],
+                formInfo: {},
+                questionStack: [
+
+                    QUESTIONS.weight,
+                    QUESTIONS.age,
+                    QUESTIONS.sex,
+                    QUESTIONS.isSmoking,
+                    QUESTIONS.sbp,
+                    QUESTIONS.dbp
+                ],
+                cardsValidation: {
+
+                },
+                currentTopIndex: 0,
+                noMoreQuestions:false
+            };
+        }
         default:
             return state
     }
