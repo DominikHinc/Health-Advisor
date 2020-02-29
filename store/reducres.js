@@ -12,7 +12,8 @@ const initialState = {
         QUESTIONS.sex,
         QUESTIONS.isSmoking,
         QUESTIONS.sbp,
-        QUESTIONS.dbp
+        QUESTIONS.dbp,
+        QUESTIONS.others
     ],
     cardsValidation: {
 
@@ -26,7 +27,7 @@ export const cardReducer = (state = initialState, action) => {
         case NEXT_QUESTION:
             let areAllValid = true;
             for (let item in state.cardsValidation) {
-                console.log(state.cardsValidation)
+                //console.log(state.cardsValidation)
                 if (state.cardsValidation[item] === false) {
                     areAllValid = false;
                 }
@@ -62,7 +63,7 @@ export const cardReducer = (state = initialState, action) => {
                         stackCopied = [QUESTIONS.packOfSmoking, ...stackCopied]
                 }
             }
-            console.log(stackCopied)
+            //console.log(stackCopied)
             const topQuestion = stackCopied[0]
             const topIndexCopy = state.currentTopIndex + 1;
 

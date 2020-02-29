@@ -4,6 +4,7 @@ import Colors from '../constants/Colors'
 import { LinearGradient } from 'expo-linear-gradient';
 import DefaultButton from '../components/DefaultButton';
 
+
 import { APIKEY } from '../constants/APIKEY';
 
 const SplashScreen = (props) => {
@@ -14,15 +15,15 @@ const SplashScreen = (props) => {
     const [opacity, setOpacity] = useState(new Animated.Value(0))
     const [afterAnimation, setAfterAnimation] = useState(false)
 
-    const startAnimation = () =>{
+    const startAnimation = () => {
         Animated.timing(paddingLeft, {
-            toValue: logoPosition/3,
-            duration:300
-        }).start(()=>{
+            toValue: logoPosition / 3,
+            duration: 300
+        }).start(() => {
             setAfterAnimation(true)
-            Animated.timing(opacity,{
-                toValue:1,
-                duration:300
+            Animated.timing(opacity, {
+                toValue: 1,
+                duration: 300
             }).start()
         });
     }
@@ -71,10 +72,10 @@ const SplashScreen = (props) => {
         <View style={styles.screen}>
             <LinearGradient style={styles.gradient} colors={[Colors.darkGreen, Colors.green]}>
                 <View style={styles.wholeLogoContainer}>
-                    <Animated.View style={[styles.logoContainer,{paddingLeft:paddingLeft}]}>
+                    <Animated.View style={[styles.logoContainer, { paddingLeft: paddingLeft }]}>
                         <Image style={styles.logo} source={require('../assets/Logo.png')} resizeMode='contain' />
                     </Animated.View>
-                     {afterAnimation && <Animated.View style={[styles.textContainer,{opacity:opacity}]}>
+                    {afterAnimation && <Animated.View style={[styles.textContainer, { opacity: opacity }]}>
                         <Text style={styles.logoText}>
                             Health
                         </Text>
@@ -83,6 +84,7 @@ const SplashScreen = (props) => {
                         </Text>
                     </Animated.View>}
                 </View>
+
                 <View style={styles.startButtonContainer}>
                     {loading ? <ActivityIndicator size="large" color={Colors.darkGreen} /> :
                         <View style={styles.button}>

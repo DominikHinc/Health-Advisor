@@ -6,6 +6,6 @@ export default {
     yellow:'#EEE82C',
     red:'#d96a4e',
     lightRed:'#fcd9d9',
-    lightBlue:'#0005b3',
+    lightBlue:'#0645AD',
     middleGreen:'#6CB444'
 }

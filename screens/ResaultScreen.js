@@ -30,7 +30,7 @@ const ResaultScreen = (props) => {
     const renderResault = ({ item, index }) => {
         return <ResultItem recommendation={item.Recommendation} index={index}
             conditions={item["Optional/applicable conditions"] !== undefined ? item["Optional/applicable conditions"] : undefined}
-            references={item.References} />
+            references={item.References} index={index} />
     }
 
     return (

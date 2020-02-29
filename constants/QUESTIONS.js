@@ -2,6 +2,7 @@ import {Question} from '../models/Question'
 
 export const NUMERIC = 'NUMERIC'
 export const TRUEFALSE = 'TRUEFALSE'
+export const OTHER = 'OTHER'
 
 export const QUESTIONS = {
     height: new Question('1','Height','Your height in centimeters',NUMERIC,'height'),
@@ -15,5 +16,6 @@ export const QUESTIONS = {
     packOfSmoking: new Question('9','Packs per day','How many packs per day have you been smoking eg. half pack a day is 0.5',NUMERIC,'packOfSmoking'),
     sbp: new Question('10','Systolic blood pressure', 'The top number. So, for 135/80 it is 135',NUMERIC,'sbp'),
     dbp: new Question('11','Diastolic blood pressure',"The bottom number. So, for 135/80 it is 80",NUMERIC,'dbp'),
+    others: new Question('12','Optional Conditions',"Mark to get Disease-Specific Recommendations",OTHER,'other')
 
 }

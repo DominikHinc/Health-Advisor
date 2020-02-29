@@ -7,7 +7,9 @@ import Card from '../components/Card'
 import { FlatList } from 'react-native-gesture-handler'
 import { useSelector, useDispatch } from 'react-redux'
 import { nextQuestion, resetAction } from '../store/actions'
-import LinearTextGradient from 'react-native-linear-gradient';
+import { OTHER } from '../constants/QUESTIONS'
+import AdditionalConditionsCard from '../components/AdditionalConditionsCard'
+
 
 const TagsChooseScreen = (props) => {
     const [loaded, setLoaded] = useState(false)
@@ -56,9 +58,16 @@ const TagsChooseScreen = (props) => {
     }
 
     const renderCard = (itemData) => {
-        return <Card id={itemData.item.id} title={itemData.item.title} objectIndetifier={itemData.item.objectIndetifier}
+        if(itemData.item.type !== OTHER){
+            return <Card id={itemData.item.id} title={itemData.item.title} objectIndetifier={itemData.item.objectIndetifier}
             closeThemAll={closeThemAll} aditionalDescription={itemData.item.aditionalDescription} type={itemData.item.type}
             cardTopnessIndex={itemData.index} currentTopIndex={currentTopCardIndex} />
+        }else{
+            return <AdditionalConditionsCard id={itemData.item.id} title={itemData.item.title} objectIndetifier={itemData.item.objectIndetifier}
+            closeThemAll={closeThemAll} aditionalDescription={itemData.item.aditionalDescription} type={itemData.item.type}
+            cardTopnessIndex={itemData.index} currentTopIndex={currentTopCardIndex} />
+        }
+        
     }
 
     return (
@@ -69,11 +78,7 @@ const TagsChooseScreen = (props) => {
                         data={tabOfCards} renderItem={renderCard} />
                 </KeyboardAvoidingView>
             </View>
-            <LinearTextGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.linearGradient}>
-                <Text style={styles.buttonText}>
-                    Sign in with Facebook
-                </Text>
-            </LinearTextGradient>
+
 
             <View style={styles.bottomBarContainer}>
                 <View style={styles.button}>
