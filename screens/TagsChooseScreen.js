@@ -6,13 +6,14 @@ import { LinearGradient } from 'expo-linear-gradient'
 import Card from '../components/Card'
 import { FlatList } from 'react-native-gesture-handler'
 import { useSelector, useDispatch } from 'react-redux'
-import { nextQuestion, resetAction } from '../store/actions'
+import { nextQuestion, resetAction, setFormData } from '../store/actions'
 import { OTHER } from '../constants/QUESTIONS'
 import AdditionalConditionsCard from '../components/AdditionalConditionsCard'
 
 
 const TagsChooseScreen = (props) => {
     const [loaded, setLoaded] = useState(false)
+    const [addtionalOptionsArr, setAddtionalOptionsArr] = useState([])
     const tabOfCards = useSelector(state => state.cards.cardsInfo);
     const currentTopCardIndex = useSelector(state => state.cards.currentTopIndex)
     const noMoreQuestions = useSelector(state => state.cards.noMoreQuestions)
@@ -20,6 +21,24 @@ const TagsChooseScreen = (props) => {
     const listRef = useRef();
     const [closeThemAll, setCloseThemAll] = useState(false)
     const timeOut = useRef()
+
+    useEffect(() => {
+        console.log(addtionalOptionsArr)
+    }, [addtionalOptionsArr])
+
+    const addToAddtionalOptionArr = (id) => {
+        let index = addtionalOptionsArr.findIndex(item => item === id);
+
+        if (index !== undefined) {
+            setAddtionalOptionsArr(prev => [...prev, id])
+        }
+
+    }
+    const removeFromAdditionalOptionArr = (id) => {
+        let copy = addtionalOptionsArr.filter(item => item !== id)
+        setAddtionalOptionsArr(copy)
+        
+    }
 
     // useEffect(() => {
     //     if (loaded === false) {
@@ -48,6 +67,7 @@ const TagsChooseScreen = (props) => {
 
 
     const addNewCard = () => {
+        dispatch(setFormData('other',addtionalOptionsArr))
         dispatch(nextQuestion());
         setCloseThemAll(true);
         timeOut.current = setTimeout(() => {
@@ -58,23 +78,24 @@ const TagsChooseScreen = (props) => {
     }
 
     const renderCard = (itemData) => {
-        if(itemData.item.type !== OTHER){
+        if (itemData.item.type !== OTHER) {
             return <Card id={itemData.item.id} title={itemData.item.title} objectIndetifier={itemData.item.objectIndetifier}
-            closeThemAll={closeThemAll} aditionalDescription={itemData.item.aditionalDescription} type={itemData.item.type}
-            cardTopnessIndex={itemData.index} currentTopIndex={currentTopCardIndex} />
-        }else{
-            return <AdditionalConditionsCard id={itemData.item.id} title={itemData.item.title} objectIndetifier={itemData.item.objectIndetifier}
-            closeThemAll={closeThemAll} aditionalDescription={itemData.item.aditionalDescription} type={itemData.item.type}
-            cardTopnessIndex={itemData.index} currentTopIndex={currentTopCardIndex} />
+                closeThemAll={closeThemAll} aditionalDescription={itemData.item.aditionalDescription} type={itemData.item.type}
+                cardTopnessIndex={itemData.index} currentTopIndex={currentTopCardIndex} />
+        } else {
+            return <AdditionalConditionsCard addToAddtionalOptionArr={addToAddtionalOptionArr} removeFromAdditionalOptionArr={removeFromAdditionalOptionArr}
+                id={itemData.item.id} title={itemData.item.title} objectIndetifier={itemData.item.objectIndetifier}
+                closeThemAll={closeThemAll} aditionalDescription={itemData.item.aditionalDescription} type={itemData.item.type}
+                cardTopnessIndex={itemData.index} currentTopIndex={currentTopCardIndex} />
         }
-        
+
     }
 
     return (
         <View style={styles.screen}>
             <View style={styles.listConteiner}>
                 <KeyboardAvoidingView style={{ flex: 1 }} behavior='padding'>
-                    <FlatList ref={listRef} style={styles.list} contentContainerStyle={{ alignItems: 'center', paddingBottom: '50%' }}
+                    <FlatList nestedScrollEnabled={true} ref={listRef} style={styles.list} contentContainerStyle={{ alignItems: 'center', paddingBottom: '50%' }}
                         data={tabOfCards} renderItem={renderCard} />
                 </KeyboardAvoidingView>
             </View>

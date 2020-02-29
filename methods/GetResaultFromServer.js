@@ -5,6 +5,7 @@ export const getResaultFromServer = async (form) => {
     let readableResponse;
     let keysTab = [];
     let url = 'https://getguidelines.com/all?';
+    let conditions = '';
     for (var item in form) {
      //console.log(item)
         switch (item) {
@@ -30,12 +31,28 @@ export const getResaultFromServer = async (form) => {
             case 'sbp':
                 keysTab = [...keysTab, `sbp=${form.sbp}&`]
                 break;
+            case 'other':
+                
+                form.other.forEach((item,index)=>{
+                    if(index === 0){
+                        conditions += item
+                    }else{
+                        conditions += ','+item
+                    }
+                })
+                break;
         }
     }
     keysTab.forEach(item =>{
         url += item;
     })
-    url += `api_token=${APIKEY}`
+    if(conditions.length > 0){
+        url += 'conditions=' + conditions
+        url += `&api_token=${APIKEY}`
+    }else{
+        url += `api_token=${APIKEY}`
+    }
+    
     console.log(url)
     //`https://getguidelines.com/all?age=${form.age}&sex=${form.sex ? 'm' : 'f'}&kg=${form.weight}&m=${form.height / 100}&dbp=${form.dbp}&sbp=${form.sbp}&api_token=${APIKEY}`
     try {

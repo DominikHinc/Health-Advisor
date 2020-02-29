@@ -4,7 +4,7 @@ export const OPTIONALTRUEFALSE = 'OPTIONALTRUEFALSE';
 
 export const OPTIONALQUESTIONS = [
     new OptionalQuestion('dm' ,'Diabetes',OPTIONALTRUEFALSE),
-    new OptionalQuestion('obese' , 'Overweight' or Obesity,OPTIONALTRUEFALSE),
+    new OptionalQuestion('obese' , 'Overweight or Obesity',OPTIONALTRUEFALSE),
     new OptionalQuestion('hiv' , 'HIV',OPTIONALTRUEFALSE),
     new OptionalQuestion('sti' , 'Sexually transmitted infection',OPTIONALTRUEFALSE),
     new OptionalQuestion('postmenopause' , 'Postmenopause',OPTIONALTRUEFALSE),

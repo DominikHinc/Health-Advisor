@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform, Dimensions, Animated } from 'react-native'
+import { View, Text, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform, Dimensions, Animated, FlatList, ScrollView } from 'react-native'
 import Colors from '../constants/Colors'
 import DefaultText from './DefaultText'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -9,13 +9,16 @@ import NumericForm from './NumericForm'
 import { setCardValid } from '../store/actions'
 import TrueFalseForm from './TrueFalseForm'
 
+import { OPTIONALQUESTIONS, OPTIONALTRUEFALSE } from '../constants/OPTIONALQUESTIONS'
+import TrueFalseOptional from './TrueFalseOptional'
+
 const AdditionalConditionsCard = (props) => {
-    const { id, closeThemAll, cardTopnessIndex, currentTopIndex, objectIndetifier, type, aditionalDescription } = props;
+    const { id, closeThemAll, cardTopnessIndex, currentTopIndex, objectIndetifier, type, aditionalDescription,removeFromAdditionalOptionArr,addToAddtionalOptionArr } = props;
     const [showDetails, setShowDetails] = useState(true)
     const [animationState, setAnimationState] = useState(new Animated.Value(showDetails ? 1 : 0))
 
     const dispatch = useDispatch();
-    
+
 
 
     useEffect(() => {
@@ -48,22 +51,26 @@ const AdditionalConditionsCard = (props) => {
     }
     const cardHeight = animationState.interpolate({
         inputRange: [0, 1],
-        outputRange: [Dimensions.get('window').height / 9, Dimensions.get('window').height / 3]
+        outputRange: [Dimensions.get('window').height / 9, Dimensions.get('window').height / 2]
     }
     )
     const labelHeight = animationState.interpolate({
         inputRange: [0, 1],
-        outputRange: ['65%', '16%']
+        outputRange: ['65%', '12%']
     }
     )
 
     const bottomMargin = animationState.interpolate({
         inputRange: [0, 1],
-        outputRange: ['-8%', '5%']
+        outputRange: ['-8%', '11%']
     }
     )
 
-   
+    const renderList = ({ item, index }) => {
+        if (item.type === OPTIONALTRUEFALSE) {
+            return <TrueFalseOptional title={item.title} id={item.id} />
+        }
+    }
 
 
     if (Platform.OS === 'android' && Platform.Version > 21) {
@@ -90,7 +97,14 @@ const AdditionalConditionsCard = (props) => {
                         <DefaultText style={styles.labelText}>
                             {aditionalDescription}
                         </DefaultText>
-                        
+                        <View style={styles.scrollViewContainer}>
+                            <ScrollView nestedScrollEnabled style={styles.scrollViewStyle}>
+                                {OPTIONALQUESTIONS.map(item => <TrueFalseOptional key={item.id} title={item.title} id={item.id}
+                                addToAddtionalOptionArr={addToAddtionalOptionArr} removeFromAdditionalOptionArr={removeFromAdditionalOptionArr}  />)}
+                            </ScrollView>
+                        </View>
+
+                        {/* <FlatList  data={OPTIONALQUESTIONS} keyExtractor={item => item.id} renderItem={renderList} style={styles.list} contentContainerStyle={styles.listContainer} /> */}
                     </View>
 
                 </LinearGradient>
@@ -115,23 +129,44 @@ const styles = StyleSheet.create({
     labelText: {
         color: 'white',
         fontSize: 17,
-        fontFamily:'calibril-light',
-        textAlign:'center'
+        fontFamily: 'calibril-light',
+        textAlign: 'center'
     },
-    title:{
+    title: {
         color: 'white',
         fontSize: 22,
-        
-    }, 
+
+    },
     content: {
         height: '100%',
         width: '100%',
     },
-    bottomContainer:{
-        flex:1,
-        paddingTop:'5%',
-        paddingBottom:'15%',
-        width:'100%'
+    bottomContainer: {
+        flex: 1,
+        paddingTop: '5%',
+        paddingBottom: '15%',
+        width: '100%'
+    },
+    listContainer: {
+        paddingVertical: '10%',
+
+    },
+    list: {
+        borderRadius: 15,
+        overflow: 'hidden',
+        borderWidth: 2,
+        marginHorizontal: '5%',
+        height: '70%'
+    },
+    scrollViewStyle: {
+    
+    },
+    scrollViewContainer:{
+        height:'90%',
+        borderRadius:20,
+        overflow:'hidden',
+        marginHorizontal:'5%',
+        
     }
 })
 
