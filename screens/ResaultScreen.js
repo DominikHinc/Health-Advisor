@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Alert, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, Alert, ActivityIndicator, Dimensions } from 'react-native'
 import { useSelector } from 'react-redux'
 import { getResaultFromServer } from '../methods/GetResaultFromServer'
 import { FlatList } from 'react-native-gesture-handler'
@@ -7,6 +7,7 @@ import ResultItem from '../components/ResultItem'
 import Colors from '../constants/Colors'
 import { LinearGradient } from 'expo-linear-gradient'
 import DefaultText from '../components/DefaultText'
+import ResultItemV2 from '../components/ResultItemV2'
 
 const ResaultScreen = (props) => {
     const formInformation = useSelector(state => state.cards.formInfo);
@@ -32,14 +33,20 @@ const ResaultScreen = (props) => {
             conditions={item["Optional/applicable conditions"] !== undefined ? item["Optional/applicable conditions"] : undefined}
             references={item.References} index={index} />
     }
+    const renderResaultV2  = ({item, index}) =>{
+        return <ResultItemV2 recommendation={item.Recommendation} index={index}
+        conditions={item["Optional/applicable conditions"] !== undefined ? item["Optional/applicable conditions"] : undefined}
+        references={item.References} index={index} />
+    }
 
     return (
         <View style={styles.screen}>
-            <LinearGradient style={styles.gradient}
+            {/* <LinearGradient style={styles.gradient}
                 colors={[listOfReccomendations.length % 2 == 1 ? Colors.green : Colors.green, listOfReccomendations.length % 2 == 1 ? Colors.middleGreen : Colors.green]}>
                 {listOfReccomendations.length === 0 && <ActivityIndicator size='large' color={Colors.darkGreen} />}
                 <FlatList data={listOfReccomendations} keyExtractor={item => item.Recommendation} renderItem={renderResault} contentContainerStyle={{ paddingTop: '5%', paddingBottom: '5%' }} />
-            </LinearGradient>
+            </LinearGradient> */}
+            <FlatList data={listOfReccomendations} keyExtractor={item => item.Recommendation} renderItem={renderResaultV2} contentContainerStyle={styles.listContainer} />
 
         </View>
     )
@@ -56,7 +63,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-
+    listContainer:{
+        paddingLeft:'1%',
+        paddingRight:'1%',
+        paddingBottom:'5%',
+        paddingTop: Dimensions.get('screen').height - Dimensions.get('window').height
+    }
 })
 
 export default ResaultScreen

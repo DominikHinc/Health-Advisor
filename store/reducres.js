@@ -38,6 +38,7 @@ export const cardReducer = (state = initialState, action) => {
 
             let stackCopied = state.questionStack;
             if(stackCopied.length < 1){
+                console.log(state)
                 return {...state, noMoreQuestions:true}
             }
 
@@ -82,7 +83,7 @@ export const cardReducer = (state = initialState, action) => {
         case SET_FORM_DATA:
             const formCopy = state.formInfo;
             formCopy[action.id] = action.data;
-            console.log(formCopy);
+            //console.log(formCopy);
 
             return { ...state, formInfo: formCopy }
         case RESET: {

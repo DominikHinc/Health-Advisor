@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, UIManager, Platform } from 'react-native';
 import { APIKEY } from './constants/APIKEY';
 import Navigator from './navigation/Navigator';
 import { AppLoading } from 'expo';
@@ -23,6 +23,11 @@ const fetchFonts = () => {
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false)
+  if (Platform.OS === 'android') {
+    if (UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }
 
   // const fetchApi = async () => {
   //   const response = await fetch(`https://getguidelines.com/all?age=68&sex=f&cac=5conditions=dm&api_token=${APIKEY}`);
