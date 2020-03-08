@@ -1,9 +1,14 @@
-import { createSwitchNavigator, createAppContainer } from "react-navigation";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import CreditsScreen from "../screens/CreditsScreen";
+import ResaultScreen from "../screens/ResaultScreen";
 import SplashScreen from "../screens/SplashScreen";
 import TagsChooseScreen from "../screens/TagsChooseScreen";
-import ResaultScreen from "../screens/ResaultScreen";
 
-//TODO do the fade out and fade in animation when switching screens
+const forFade = ({ current, closing }) => ({
+    cardStyle: {
+        opacity: current.progress,
+    },
+});
 
 const switchNavi = createSwitchNavigator({
     Splash:{
@@ -14,6 +19,13 @@ const switchNavi = createSwitchNavigator({
     },
     Resault:{
         screen:ResaultScreen
+    },
+    Credits:{
+        screen:CreditsScreen
+    }
+},{
+    defaultNavigationOptions: {
+        cardStyleInterpolator: forFade
     }
 })
 

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform, Dimensions, Animated } from 'react-native'
-import Colors from '../constants/Colors'
-import DefaultText from './DefaultText'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { Animated, Dimensions, Platform, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native'
+import { useDispatch } from 'react-redux'
+import Colors from '../constants/Colors'
 import { NUMERIC, TRUEFALSE } from '../constants/QUESTIONS'
-import NumericForm from './NumericForm'
 import { setCardValid } from '../store/actions'
+import DefaultText from './DefaultText'
+import NumericForm from './NumericForm'
 import TrueFalseForm from './TrueFalseForm'
 
 const Card = (props) => {
@@ -15,11 +15,6 @@ const Card = (props) => {
     const [animationState, setAnimationState] = useState(new Animated.Value(showDetails ? 1 : 0))
     const [isValid, setIsValid] = useState(false)
     const dispatch = useDispatch();
-    // console.log('There still is a card')
-    // console.log('Obj id ' +objectIndetifier);
-    // console.log('Type' + type);
-    // console.log('Add desc ' +aditionalDescription)
-    //console.log(id+" this card index is "+cardTopnessIndex.toString() + 'ANd current top is ' +currentTopIndex)
 
     useEffect(()=>{
         dispatch(setCardValid(objectIndetifier,isValid));

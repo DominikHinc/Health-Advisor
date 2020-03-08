@@ -1,5 +1,5 @@
-import { ADD_QUESTION, CHANGE_SHOWDETAILS, SHIFT_STACK, NEXT_QUESTION, SET_CARD_VALIDATION, SET_FORM_DATA, RESET } from "./actions";
 import { QUESTIONS } from "../constants/QUESTIONS";
+import { NEXT_QUESTION, RESET, SET_CARD_VALIDATION, SET_FORM_DATA, SHIFT_STACK } from "./actions";
 
 
 const initialState = {
@@ -19,7 +19,7 @@ const initialState = {
 
     },
     currentTopIndex: 0,
-    noMoreQuestions:false
+    noMoreQuestions: false
 }
 
 export const cardReducer = (state = initialState, action) => {
@@ -37,9 +37,9 @@ export const cardReducer = (state = initialState, action) => {
             }
 
             let stackCopied = state.questionStack;
-            if(stackCopied.length < 1){
+            if (stackCopied.length < 1) {
                 console.log(state)
-                return {...state, noMoreQuestions:true}
+                return { ...state, noMoreQuestions: true }
             }
 
             if (state.cardsInfo[state.currentTopIndex] !== undefined) {
@@ -97,13 +97,14 @@ export const cardReducer = (state = initialState, action) => {
                     QUESTIONS.sex,
                     QUESTIONS.isSmoking,
                     QUESTIONS.sbp,
-                    QUESTIONS.dbp
+                    QUESTIONS.dbp,
+                    QUESTIONS.others
                 ],
                 cardsValidation: {
 
                 },
                 currentTopIndex: 0,
-                noMoreQuestions:false
+                noMoreQuestions: false
             };
         }
         default:

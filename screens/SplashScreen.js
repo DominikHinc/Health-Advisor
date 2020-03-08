@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { View, Text, StyleSheet, Image, ActivityIndicator, Alert, Dimensions, Animated } from 'react-native'
-import Colors from '../constants/Colors'
 import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Animated, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import DefaultButton from '../components/DefaultButton';
-
-
+import DefaultText from '../components/DefaultText';
 import { APIKEY } from '../constants/APIKEY';
+import Colors from '../constants/Colors';
+
+
 
 const SplashScreen = (props) => {
     const logoPosition = Dimensions.get('window').width / 2 - Dimensions.get('screen').height * 17.6 / 100 / 2
@@ -17,7 +18,7 @@ const SplashScreen = (props) => {
 
     const startAnimation = () => {
         Animated.timing(paddingLeft, {
-            toValue: logoPosition / 3,
+            toValue: logoPosition / 2,
             duration: 300
         }).start(() => {
             setAfterAnimation(true)
@@ -80,7 +81,7 @@ const SplashScreen = (props) => {
                             Health
                         </Text>
                         <Text style={styles.logoText}>
-                            Recommender
+                            Advisor
                         </Text>
                     </Animated.View>}
                 </View>
@@ -92,6 +93,10 @@ const SplashScreen = (props) => {
                         </View>
                     }
                 </View>
+                {!loading && <View style={styles.infoButtonConatiner}>
+                    <DefaultText style={styles.infoLabel} onPress={() => { props.navigation.navigate('Credits') }}>Credits</DefaultText>
+                </View>}
+
             </LinearGradient>
         </View>
     )
@@ -139,6 +144,17 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         backgroundColor: Colors.green,
         borderRadius: 15,
+    },
+    infoButtonConatiner: {
+        height: '5%',
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-between',
+        paddingHorizontal: '5%',
+
+    },
+    infoLabel: {
+        color: 'white',
+        fontWeight: 'bold'
     }
 })
 export default SplashScreen

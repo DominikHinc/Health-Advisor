@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, UIManager, Platform } from 'react-native';
-import { APIKEY } from './constants/APIKEY';
-import Navigator from './navigation/Navigator';
 import { AppLoading } from 'expo';
-import * as Font from 'expo-font'
-import { combineReducers, createStore } from 'redux';
+import * as Font from 'expo-font';
+import React, { useState } from 'react';
+import { Platform, UIManager } from 'react-native';
 import { Provider } from 'react-redux';
+import { combineReducers, createStore } from 'redux';
+import Navigator from './navigation/Navigator';
 import { cardReducer } from './store/reducres';
 const combinedReducers = combineReducers({
   cards: cardReducer
@@ -29,13 +28,6 @@ export default function App() {
     }
   }
 
-  // const fetchApi = async () => {
-  //   const response = await fetch(`https://getguidelines.com/all?age=68&sex=f&cac=5conditions=dm&api_token=${APIKEY}`);
-  //   const readableResponse = await response.json();
-  //   console.log(readableResponse)
-  // }
-
-
   if (!fontsLoaded) {
     return <AppLoading startAsync={fetchFonts}
       onFinish={() => {
@@ -51,11 +43,3 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

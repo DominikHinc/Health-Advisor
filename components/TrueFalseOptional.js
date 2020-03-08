@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet, Switch } from 'react-native'
-import DefaultText from './DefaultText';
+import React, { useState } from 'react';
+import { StyleSheet, Switch, View } from 'react-native';
 import Colors from '../constants/Colors';
+import DefaultText from './DefaultText';
 
 const TrueFalseOptional = (props) => {
     const {id,title,removeFromAdditionalOptionArr,addToAddtionalOptionArr} =props;
@@ -27,10 +27,8 @@ const TrueFalseOptional = (props) => {
 
 const styles = StyleSheet.create({
     container:{
-
         flexDirection:'row',
         justifyContent:'space-between',
-        //paddingHorizontal:'5%'
     },
     label:{
         color:'white',

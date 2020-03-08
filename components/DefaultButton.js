@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform } from 'react-native'
+import React from 'react';
+import { Platform, StyleSheet, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
 import DefaultText from './DefaultText';
 
 const DefaultButton = (props) => {

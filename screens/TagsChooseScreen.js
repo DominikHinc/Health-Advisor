@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, StyleSheet, Dimensions, KeyboardAvoidingView, Alert } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
+import React, { useEffect, useRef, useState } from 'react'
+import { Alert, KeyboardAvoidingView, StyleSheet, View } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
+import { useDispatch, useSelector } from 'react-redux'
+import AdditionalConditionsCard from '../components/AdditionalConditionsCard'
+import Card from '../components/Card'
 import DefaultButton from '../components/DefaultButton'
 import Colors from '../constants/Colors'
-import { LinearGradient } from 'expo-linear-gradient'
-import Card from '../components/Card'
-import { FlatList } from 'react-native-gesture-handler'
-import { useSelector, useDispatch } from 'react-redux'
-import { nextQuestion, resetAction, setFormData } from '../store/actions'
 import { OTHER } from '../constants/QUESTIONS'
-import AdditionalConditionsCard from '../components/AdditionalConditionsCard'
+import { nextQuestion, resetAction, setFormData } from '../store/actions'
 
 
 const TagsChooseScreen = (props) => {

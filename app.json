@@ -1,21 +1,20 @@
 {
   "expo": {
     "name": "Health Advisor",
-    "slug": "health",
+    "slug": "health-advisor",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Logo.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#19381F"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,7 +23,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "pl.dominik.hinc.health-advisor",
+      "supportsTablet": true,
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "pl.dominik.hinc.heath_advisor",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo-adaptive.png",
+        "backgroundColor": "#54a548"
+      },
+      "permissions": []
     },
     "description": ""
   }

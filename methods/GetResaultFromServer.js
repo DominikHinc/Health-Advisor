@@ -7,7 +7,6 @@ export const getResaultFromServer = async (form) => {
     let url = 'https://getguidelines.com/all?';
     let conditions = '';
     for (var item in form) {
-     //console.log(item)
         switch (item) {
             case 'age':
                 keysTab = [...keysTab, `age=${form.age}&`]
@@ -52,9 +51,7 @@ export const getResaultFromServer = async (form) => {
     }else{
         url += `api_token=${APIKEY}`
     }
-    
-    console.log(url)
-    //`https://getguidelines.com/all?age=${form.age}&sex=${form.sex ? 'm' : 'f'}&kg=${form.weight}&m=${form.height / 100}&dbp=${form.dbp}&sbp=${form.sbp}&api_token=${APIKEY}`
+
     try {
         response = await fetch(url);
     } catch (error) {
@@ -66,7 +63,6 @@ export const getResaultFromServer = async (form) => {
         return { success: false };
     }
 
-    ///console.log(readableResponse)
     if (readableResponse.meta.status === 'success') {
         return { success: true, response: readableResponse.data }
     }

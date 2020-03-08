@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import DefaultButton from './DefaultButton'
-import Colors from '../constants/Colors'
 import { LinearGradient } from 'expo-linear-gradient'
+import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 import { useDispatch } from 'react-redux'
+import Colors from '../constants/Colors'
 import { setFormData } from '../store/actions'
+import DefaultButton from './DefaultButton'
 
 const TrueFalseForm = (props) => {
     const { objectIndetifier, isValid, setIsValid, cardTopnessIndex, currentTopIndex } = props;

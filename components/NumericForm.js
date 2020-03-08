@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
-import Colors from '../constants/Colors'
-import validate from 'validate.js'
-import { threeNumbersValidation, twoNumbersValidation, floatValidation } from '../validation/constraints'
 import { useDispatch } from 'react-redux'
+import validate from 'validate.js'
+import Colors from '../constants/Colors'
 import { setFormData } from '../store/actions'
+import { threeNumbersValidation, twoNumbersValidation } from '../validation/constraints'
 
 
 const NumericForm = (props) => {
@@ -42,8 +42,6 @@ const NumericForm = (props) => {
                     console.log('Matching')
                     validationResault = undefined;
                 }
-
-                //validationResault = validate({ value: parseFloat(text) }, floatValidation);
                 break;
         }
 

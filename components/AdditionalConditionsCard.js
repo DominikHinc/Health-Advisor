@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform, Dimensions, Animated, FlatList, ScrollView } from 'react-native'
-import Colors from '../constants/Colors'
-import DefaultText from './DefaultText'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useSelector, useDispatch } from 'react-redux'
-import { NUMERIC, TRUEFALSE } from '../constants/QUESTIONS'
-import NumericForm from './NumericForm'
-import { setCardValid } from '../store/actions'
-import TrueFalseForm from './TrueFalseForm'
-
-import { OPTIONALQUESTIONS, OPTIONALTRUEFALSE } from '../constants/OPTIONALQUESTIONS'
+import React, { useEffect, useState } from 'react'
+import { Animated, Dimensions, Platform, ScrollView, StyleSheet, TouchableNativeFeedback, View } from 'react-native'
+import Colors from '../constants/Colors'
+import { OPTIONALQUESTIONS } from '../constants/OPTIONALQUESTIONS'
+import DefaultText from './DefaultText'
 import TrueFalseOptional from './TrueFalseOptional'
 
+
 const AdditionalConditionsCard = (props) => {
-    const { id, closeThemAll, cardTopnessIndex, currentTopIndex, objectIndetifier, type, aditionalDescription,removeFromAdditionalOptionArr,addToAddtionalOptionArr } = props;
+    const { id, closeThemAll, cardTopnessIndex, currentTopIndex, objectIndetifier, type, aditionalDescription, removeFromAdditionalOptionArr, addToAddtionalOptionArr } = props;
     const [showDetails, setShowDetails] = useState(true)
     const [animationState, setAnimationState] = useState(new Animated.Value(showDetails ? 1 : 0))
-
-    const dispatch = useDispatch();
-
 
 
     useEffect(() => {
@@ -66,13 +58,6 @@ const AdditionalConditionsCard = (props) => {
     }
     )
 
-    const renderList = ({ item, index }) => {
-        if (item.type === OPTIONALTRUEFALSE) {
-            return <TrueFalseOptional title={item.title} id={item.id} />
-        }
-    }
-
-
     if (Platform.OS === 'android' && Platform.Version > 21) {
         TouchableComp = TouchableNativeFeedback;
     }
@@ -100,11 +85,10 @@ const AdditionalConditionsCard = (props) => {
                         <View style={styles.scrollViewContainer}>
                             <ScrollView nestedScrollEnabled style={styles.scrollViewStyle}>
                                 {OPTIONALQUESTIONS.map(item => <TrueFalseOptional key={item.id} title={item.title} id={item.id}
-                                addToAddtionalOptionArr={addToAddtionalOptionArr} removeFromAdditionalOptionArr={removeFromAdditionalOptionArr}  />)}
+                                    addToAddtionalOptionArr={addToAddtionalOptionArr} removeFromAdditionalOptionArr={removeFromAdditionalOptionArr} />)}
                             </ScrollView>
                         </View>
 
-                        {/* <FlatList  data={OPTIONALQUESTIONS} keyExtractor={item => item.id} renderItem={renderList} style={styles.list} contentContainerStyle={styles.listContainer} /> */}
                     </View>
 
                 </LinearGradient>
@@ -159,14 +143,14 @@ const styles = StyleSheet.create({
         height: '70%'
     },
     scrollViewStyle: {
-    
+
     },
-    scrollViewContainer:{
-        height:'90%',
-        borderRadius:20,
-        overflow:'hidden',
-        marginHorizontal:'5%',
-        
+    scrollViewContainer: {
+        height: '90%',
+        borderRadius: 20,
+        overflow: 'hidden',
+        marginHorizontal: '5%',
+
     }
 })
 

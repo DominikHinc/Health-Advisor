@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, StyleSheet, Dimensions, TouchableNativeFeedback, TouchableOpacity, Platform, Animated, ScrollView, LayoutAnimation, Clipboard } from 'react-native'
+import React, { useState } from 'react'
+import { Animated, Clipboard, LayoutAnimation, Platform, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native'
 import Colors from '../constants/Colors'
 import DefaultText from './DefaultText'
 
@@ -83,9 +83,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.green,
         width: '100%',
-        // height: Dimensions.get('window').height / 6,
         marginVertical: '0.5%',
-        
         borderRadius: 10,
         overflow: 'hidden',
 
@@ -93,10 +91,6 @@ const styles = StyleSheet.create({
     label: {
         color: 'white',
         fontSize: 17
-    },
-    topContainer: {
-
-
     },
     bottomContainer: {
         backgroundColor: Colors.middleGreen,
