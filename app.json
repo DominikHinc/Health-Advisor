@@ -28,12 +28,8 @@
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "pl.dominik.hinc.heath_advisor",
-      "versionCode": 1,
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/logo-adaptive.png",
-        "backgroundColor": "#54a548"
-      },
+      "package": "pl.dominik.hinc.health_advisor",
+      "versionCode": 3,
       "permissions": []
     },
     "description": ""

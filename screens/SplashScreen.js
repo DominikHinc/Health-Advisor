@@ -57,7 +57,6 @@ const SplashScreen = (props) => {
             return;
         }
 
-        //console.log(readableResponse)
         if (readableResponse.meta.status === 'success') {
             setLoading(false);
             setErrorHasOccured(false);

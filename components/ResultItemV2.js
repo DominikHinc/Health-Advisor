@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Animated, Clipboard, LayoutAnimation, Platform, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native'
+import { Animated, Clipboard, LayoutAnimation, Platform, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View, Alert } from 'react-native'
 import Colors from '../constants/Colors'
 import DefaultText from './DefaultText'
 
@@ -39,7 +39,7 @@ const ResultItemV2 = (props) => {
     }
     const copyReferencesToClipboard = () => {
         Clipboard.setString(props.references);
-        alert('Copied to Clipboard');
+        Alert.alert("References", "Copied to Clipboard")
     }
 
     

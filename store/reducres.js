@@ -27,7 +27,7 @@ export const cardReducer = (state = initialState, action) => {
         case NEXT_QUESTION:
             let areAllValid = true;
             for (let item in state.cardsValidation) {
-                //console.log(state.cardsValidation)
+                
                 if (state.cardsValidation[item] === false) {
                     areAllValid = false;
                 }
@@ -38,12 +38,12 @@ export const cardReducer = (state = initialState, action) => {
 
             let stackCopied = state.questionStack;
             if (stackCopied.length < 1) {
-                console.log(state)
+              
                 return { ...state, noMoreQuestions: true }
             }
 
             if (state.cardsInfo[state.currentTopIndex] !== undefined) {
-                //console.log(state.cardsInfo[state.currentTopIndex])
+             
                 switch (state.cardsInfo[state.currentTopIndex].objectIndetifier) {
                     case 'sex':
                         if (state.formInfo.sex === false) {
@@ -64,7 +64,7 @@ export const cardReducer = (state = initialState, action) => {
                         stackCopied = [QUESTIONS.packOfSmoking, ...stackCopied]
                 }
             }
-            //console.log(stackCopied)
+           
             const topQuestion = stackCopied[0]
             const topIndexCopy = state.currentTopIndex + 1;
 
@@ -78,12 +78,12 @@ export const cardReducer = (state = initialState, action) => {
         case SET_CARD_VALIDATION:
             const cardsValidationCopy = state.cardsValidation;
             cardsValidationCopy[action.id] = action.isValid;
-            //console.log(cardsValidationCopy)
+       
             return { ...state, cardsValidation: cardsValidationCopy }
         case SET_FORM_DATA:
             const formCopy = state.formInfo;
             formCopy[action.id] = action.data;
-            //console.log(formCopy);
+           
 
             return { ...state, formInfo: formCopy }
         case RESET: {
